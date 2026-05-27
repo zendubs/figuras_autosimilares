@@ -3,7 +3,7 @@
 void splitLine(Turtle *, int, int);
 void koch(Turtle *, int, int);
 void copo(Turtle *, int, int);
-
+void fractalTree( Turtle *, float, int);
 int main(void){
   TurtleApp *app = turtleAppCreate(400, 300, "Test Line");
 
@@ -57,4 +57,8 @@ void copo(Turtle *t, int length, int count){
         koch(t, length, count);
         turtleRight(t, 120.0);
     }
+}
+
+void fractalTree(Turtle *t, float length, int depth){
+     
 }
