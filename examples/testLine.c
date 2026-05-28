@@ -21,7 +21,8 @@ int main(void){
   //turtleForward(t, 300.0f);
 //  splitLine(t, 300, 2);
   //koch(t, 100, 3);
-  copo(t, 100, 1);
+  //copo(t, 100, 1);
+    fractalTree(t, 100, 3);
   turtleAppRun(app);
   turtleAppDestroy(app);
   return 0;
@@ -60,5 +61,15 @@ void copo(Turtle *t, int length, int count){
 }
 
 void fractalTree(Turtle *t, float length, int depth){
-     
+    if(depth == 0 || length < 5)
+        return;
+    turtleForward(t, length);
+
+    turtleLeft(t, 30);
+    fractalTree(t, length * 0.7, depth - 1);
+    turtleRight(t, 60);
+    fractalTree(t, length * 0.7, depth - 1);
+    turtleLeft(t, 30);
+    turtleBackward(t, length);
+
 }
