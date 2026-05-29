@@ -1,11 +1,15 @@
 #include "../turtlec.h"
+#include <math.h>
 
 void splitLine(Turtle *, int, int);
 void koch(Turtle *, int, int);
 void copo(Turtle *, int, int);
-void fractalTree( Turtle *, float, int);
+void fractalTree(Turtle *, float, int);
+void fractalTree2(Turtle *, float, int);
+void levy(Turtle *, float, int);
+
 int main(void){
-  TurtleApp *app = turtleAppCreate(400, 300, "Test Line");
+  TurtleApp *app = turtleAppCreate(500, 500, "Test Line");
 
   if(app == NULL)
     return 1;
@@ -13,16 +17,18 @@ int main(void){
   Turtle *t = turtleAppGetTurtle(app);
 
   turtlePenUp(t);
-  turtleGoTo(t, 150.0f, 150.0f);
+  turtleGoTo(t, 100.0f, 250.0f);
   turtlePenDown(t);
 
   turtleSetColor(t, 255, 100, 0);
   turtleSetSpeed(t, 5.0f);
   //turtleForward(t, 300.0f);
-//  splitLine(t, 300, 2);
+  //splitLine(t, 300, 2);
   //koch(t, 100, 3);
   //copo(t, 100, 1);
-    fractalTree(t, 100, 3);
+  //fractalTree(t, 100, 7);
+  //fractalTree2(t, 100, 7);
+  levy(t, 250, 10);
   turtleAppRun(app);
   turtleAppDestroy(app);
   return 0;
@@ -63,13 +69,59 @@ void copo(Turtle *t, int length, int count){
 void fractalTree(Turtle *t, float length, int depth){
     if(depth == 0 || length < 5)
         return;
+
     turtleForward(t, length);
-
-    turtleLeft(t, 30);
-    fractalTree(t, length * 0.7, depth - 1);
-    turtleRight(t, 60);
-    fractalTree(t, length * 0.7, depth - 1);
-    turtleLeft(t, 30);
+    turtleLeft(t, 35);
+    fractalTree(t, length * 0.6, depth - 1);
+    
+    turtleRight(t, 70);
+    fractalTree(t, length * 0.6, depth - 1);
+ 
+    turtleLeft(t, 35);
     turtleBackward(t, length);
+}
 
+void fractalTree2(Turtle *t, float length, int depth){
+    //cuando ejecutemos esta funcion es correcto comentar la linea q define el
+    //color en el main ya que aqui lo estamos haciendo con un if
+     if(depth == 0 || length < 5)
+        return;
+
+     if(depth > 5)
+        turtleSetColor (t, 120, 70, 20);
+     else
+        turtleSetColor (t, 0 , 200 , 0);
+
+
+    turtleForward(t, length);
+    turtleLeft(t, 20);
+    fractalTree(t, length / sqrt(2), depth - 1);
+    
+    turtleRight(t, 40);
+    fractalTree(t, length / sqrt(2), depth - 1);
+ 
+    turtleLeft(t, 20);
+
+    turtlePenUp(t);
+    turtleBackward(t, length);
+    turtlePenDown(t);
+}
+
+void levy(Turtle *t, float length, int depth){
+    if(depth == 0){
+        turtleForward(t, length);
+        return;
+    }
+    
+    if(depth > 0){
+        turtleLeft(t, 45);
+    }
+
+    levy(t, length * 0.6, depth - 1);
+
+    turtleRight(t, 90);
+    
+    levy(t, length * 0.6, depth - 1);
+    
+    turtleLeft(t,45);
 }
