@@ -7,6 +7,7 @@ void copo(Turtle *, int, int);
 void fractalTree(Turtle *, float, int);
 void fractalTree2(Turtle *, float, int);
 void levy(Turtle *, float, int);
+void retofinal13(Turtle *, float, int, int);
 
 int main(void){
   TurtleApp *app = turtleAppCreate(500, 500, "Test Line");
@@ -20,7 +21,7 @@ int main(void){
   turtleGoTo(t, 100.0f, 250.0f);
   turtlePenDown(t);
 
-  turtleSetColor(t, 255, 100, 0);
+  //turtleSetColor(t, 255, 100, 0);
   turtleSetSpeed(t, 5.0f);
   //turtleForward(t, 300.0f);
   //splitLine(t, 300, 2);
@@ -28,7 +29,8 @@ int main(void){
   //copo(t, 100, 1);
   //fractalTree(t, 100, 7);
   //fractalTree2(t, 100, 7);
-  levy(t, 250, 10);
+  //levy(t, 250, 10);
+  retofinal13(t, 100, 6, 6);
   turtleAppRun(app);
   turtleAppDestroy(app);
   return 0;
@@ -124,4 +126,29 @@ void levy(Turtle *t, float length, int depth){
     levy(t, length * 0.6, depth - 1);
     
     turtleLeft(t,45);
+}
+void retofinal13(Turtle *t, float length, int depth, int max_depth){
+    if(depth == 0 || length < 5)
+        return;
+
+    float factor = (float)(max_depth - depth) / max_depth;
+    int r = 139 + factor * (34 - 139);
+    int g = 69 + factor * (139 - 69);
+    int b = 19 + factor * (34 - 19);
+    turtleSetColor(t, r, g, b);
+
+    turtleForward(t, length);
+    turtleLeft(t, 35);
+    retofinal13(t, length * 0.8, depth - 1, max_depth);
+    
+    turtleRight(t, 35);
+    retofinal13(t, length * 0.8, depth - 1, max_depth);
+
+    turtleRight(t, 35);
+    retofinal13(t, length * 0.8, depth - 1, max_depth);
+
+    turtleLeft(t,35);
+
+    turtleSetColor(t,r,g,b);
+    turtleBackward(t, length);
 }
