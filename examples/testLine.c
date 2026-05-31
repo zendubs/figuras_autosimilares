@@ -1,9 +1,5 @@
 #include "../turtlec.h"
 #include <math.h>
-
-void splitLine(Turtle *, int, int);
-void koch(Turtle *, int, int);
-void copo(Turtle *, int, int);
 void fractalTree(Turtle *, float, int);
 void fractalTree2(Turtle *, float, int);
 void levy(Turtle *, float, int);
@@ -21,52 +17,17 @@ int main(void){
   turtleGoTo(t, 100.0f, 250.0f);
   turtlePenDown(t);
 
-  //turtleSetColor(t, 255, 100, 0);
+  turtleSetColor(t, 255, 100, 0);
   turtleSetSpeed(t, 5.0f);
-  //turtleForward(t, 300.0f);
-  //splitLine(t, 300, 2);
-  //koch(t, 100, 3);
-  //copo(t, 100, 1);
   //fractalTree(t, 100, 7);
   //fractalTree2(t, 100, 7);
   //levy(t, 250, 10);
-  retofinal13(t, 100, 6, 6);
+  //retofinal13(t, 100, 6, 6);
   turtleAppRun(app);
   turtleAppDestroy(app);
   return 0;
 }
 
-void splitLine(Turtle *t, int length, int count) {
-    if(count == 0){
-        turtleForward(t, length);
-        return;
-    }
-    splitLine(t, length / 2.0, count - 1);
-    turtleLeft(t, 60.0);
-    splitLine(t, length / 2.0, count - 1);
-    turtleRight(t, 60.0);
-}
-
-void koch(Turtle *t, int length, int count){
-    if(count == 0) {
-        turtleForward(t,length);
-        return;
-    }
-    koch(t, length / 3.0, count - 1);
-    turtleLeft(t, 60.0);
-    koch(t, length / 3.0, count - 1);
-    turtleRight(t, 120.0);
-    koch(t, length / 3.0, count - 1);
-    turtleLeft(t, 60.0);
-    koch(t, length / 3.0, count - 1);
-}
-
-void copo(Turtle *t, int length, int count){
-    for(int i = 0; i < 3; i++){
-        koch(t, length, count);
-        turtleRight(t, 120.0);
-    }
-}
 
 void fractalTree(Turtle *t, float length, int depth){
     if(depth == 0 || length < 5)
@@ -97,10 +58,10 @@ void fractalTree2(Turtle *t, float length, int depth){
 
     turtleForward(t, length);
     turtleLeft(t, 20);
-    fractalTree(t, length / sqrt(2), depth - 1);
+    fractalTree2(t, length / sqrt(2), depth - 1);
     
     turtleRight(t, 40);
-    fractalTree(t, length / sqrt(2), depth - 1);
+    fractalTree2(t, length / sqrt(2), depth - 1);
  
     turtleLeft(t, 20);
 
@@ -128,6 +89,8 @@ void levy(Turtle *t, float length, int depth){
     turtleLeft(t,45);
 }
 void retofinal13(Turtle *t, float length, int depth, int max_depth){
+    //aqui tmb debemos comentar el color del main para poder apreciar
+    //cada nivel de recursion con un color diferente
     if(depth == 0 || length < 5)
         return;
 
